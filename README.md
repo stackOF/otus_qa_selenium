@@ -1,2 +1,2 @@
 # otus_qa_selenium
-Для АТ, при сдаче ДЗ модуля senenium
+Для сдачи ДЗ по модулям "Web UI", "Selenium WebDriver"
