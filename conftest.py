@@ -1,7 +1,5 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
@@ -20,8 +18,7 @@ def browser(request):
         driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
     elif browser == "firefox":
         options = FirefoxOptions()
-        service = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=options)
-        driver = webdriver.Firefox(service=service)
+        driver = webdriver.Firefox(service=Service('geckodriver'), options=options)
     elif browser == "safari":
         driver = webdriver.Safari()
     else:
