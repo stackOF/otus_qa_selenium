@@ -32,32 +32,32 @@ from dataclasses import dataclass
 #     assert is_element_present(browser, *MainPageLocators.main_banners), "Главное окно: нет баннера"
 #
 
-@pytest.mark.parametrize("elements_locators", ["//select[@id='input-sort']", "//select[@id='input-limit']",
-                                               "//label[@for='input-sort']", "//label[@for='input-limit']",
-                                               "//a[@id='compare-total']"])
-def test_catalog_page(browser, url, elements_locators):
-    """Тест каталога товаров"""
-    browser.get(url)
-    browser.maximize_window()
-    WebDriverWait(browser, 1).until(ec.presence_of_element_located((By.LINK_TEXT, "Desktops"))).click()
-    WebDriverWait(browser, 2).until(ec.presence_of_element_located((By.LINK_TEXT, "Show All Desktops"))).click()
-    try:
-        WebDriverWait(browser, 2).until(ec.presence_of_element_located((By.XPATH, elements_locators)))
-    except TimeoutException:
-        raise AssertionError(f"Элемент '{elements_locators}' не найден на странице каталога товаров")
+# @pytest.mark.parametrize("elements_locators", ["//select[@id='input-sort']", "//select[@id='input-limit']",
+#                                                "//label[@for='input-sort']", "//label[@for='input-limit']",
+#                                                "//a[@id='compare-total']"])
+# def test_catalog_page(browser, url, elements_locators):
+#     """Тест каталога товаров"""
+#     browser.get(url)
+#     browser.maximize_window()
+#     WebDriverWait(browser, 1).until(ec.presence_of_element_located((By.LINK_TEXT, "Desktops"))).click()
+#     WebDriverWait(browser, 2).until(ec.presence_of_element_located((By.LINK_TEXT, "Show All Desktops"))).click()
+#     try:
+#         WebDriverWait(browser, 2).until(ec.presence_of_element_located((By.XPATH, elements_locators)))
+#     except TimeoutException:
+#         raise AssertionError(f"Элемент '{elements_locators}' не найден на странице каталога товаров")
 
 
-def test_article_page(browser, url):
-    browser.get(url)
-    wait = WebDriverWait(browser, 1)
-    wait.until(ec.visibility_of_all_elements_located((By.CSS_SELECTOR, "[id=content] > div.row .product-thumb")))[0].\
-        click()
-    wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='button-cart']")))
-    wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='input-quantity']")))
-    wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='description-tab']")))
-    wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[class='price-new']")))
-    assert len(wait.until(ec.visibility_of_all_elements_located
-                          ((By.CSS_SELECTOR, "[class='far fa-star fa-stack-1x']")))) == 5
+# def test_article_page(browser, url):
+#     browser.get(url)
+#     wait = WebDriverWait(browser, 1)
+#     wait.until(ec.visibility_of_all_elements_located((By.CSS_SELECTOR, "[id=content] > div.row .product-thumb")))[0].\
+#         click()
+#     wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='button-cart']")))
+#     wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='input-quantity']")))
+#     wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[id='description-tab']")))
+#     wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, "[class='price-new']")))
+#     assert len(wait.until(ec.visibility_of_all_elements_located
+#                           ((By.CSS_SELECTOR, "[class='far fa-star fa-stack-1x']")))) == 5
 
 
 def test_admin_page(browser, url):

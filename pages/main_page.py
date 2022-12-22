@@ -1,6 +1,7 @@
 from pages.base_page import BaseClass
 from pages.locators import MainPageLocators
 
+
 class MainPage(BaseClass):
 
     def should_be_main_navbar(self):

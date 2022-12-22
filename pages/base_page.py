@@ -15,7 +15,7 @@ class BaseClass:
         """Проверка наличия элемента
         :param how: способ поиска элемента (By.CSS_SELECTOR/ By.XPATH, ...)
         :param what: локатор искомого объекта
-        :param: timeout: сколько ждать"""
+        :param timeout: сколько ждать"""
         try:
             WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located((how, what)))
         except TimeoutException:

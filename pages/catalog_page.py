@@ -1,6 +1,5 @@
 from pages.base_page import BaseClass
 from pages.locators import CatalogPageLocators
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
