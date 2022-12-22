@@ -5,32 +5,32 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from dataclasses import dataclass
 
-
-@dataclass(frozen=True)
-class MainPageLocators:
-    main_navbar: tuple = (By.CSS_SELECTOR, "[id='narbar-menu']")
-    main_navbar_btn: tuple = (By.CSS_SELECTOR, "[class='navbar-toggler']")
-    main_search_input: tuple = (By.CSS_SELECTOR, "[class='form-control form-control-lg']")
-    main_search_btn: tuple = (By.CSS_SELECTOR, "[class='btn btn-light btn-lg']")
-    main_banners: tuple = (By.CSS_SELECTOR, "[id ='carousel-banner-1']")
-
-
-def is_element_present(browser, how, what, timeout=1):
-    return WebDriverWait(browser, timeout).until(ec.presence_of_element_located((how, what)))
-
-
-def test_main_page(browser, url):
-    """Тест главного окна"""
-    browser.get(url)
-    assert browser.title == 'Your Store', "Страница отличается от ожидаемой"
-    assert is_element_present(browser, *MainPageLocators.main_navbar, timeout=2), "Главное окно: нет навигационной" \
-                                                                                  " панели"
-    assert is_element_present(browser, *MainPageLocators.main_navbar_btn), "Главное окно: нет кнопки-навигации по " \
-                                                                           "разделам"
-    assert is_element_present(browser, *MainPageLocators.main_search_input), "Главное окно: нет поля ввода поиска"
-    assert is_element_present(browser, *MainPageLocators.main_search_btn), "Главное окно: нет кнопки 'поиск'"
-    assert is_element_present(browser, *MainPageLocators.main_banners), "Главное окно: нет баннера"
-
+#
+# @dataclass(frozen=True)
+# class MainPageLocators:
+#     main_navbar: tuple = (By.CSS_SELECTOR, "[id='narbar-menu']")
+#     main_navbar_btn: tuple = (By.CSS_SELECTOR, "[class='navbar-toggler']")
+#     main_search_input: tuple = (By.CSS_SELECTOR, "[class='form-control form-control-lg']")
+#     main_search_btn: tuple = (By.CSS_SELECTOR, "[class='btn btn-light btn-lg']")
+#     main_banners: tuple = (By.CSS_SELECTOR, "[id ='carousel-banner-1']")
+#
+#
+# def is_element_present(browser, how, what, timeout=1):
+#     return WebDriverWait(browser, timeout).until(ec.presence_of_element_located((how, what)))
+#
+#
+# def test_main_page(browser, url):
+#     """Тест главного окна"""
+#     browser.get(url)
+#     assert browser.title == 'Your Store', "Страница отличается от ожидаемой"
+#     assert is_element_present(browser, *MainPageLocators.main_navbar, timeout=2), "Главное окно: нет навигационной" \
+#                                                                                   " панели"
+#     assert is_element_present(browser, *MainPageLocators.main_navbar_btn), "Главное окно: нет кнопки-навигации по " \
+#                                                                            "разделам"
+#     assert is_element_present(browser, *MainPageLocators.main_search_input), "Главное окно: нет поля ввода поиска"
+#     assert is_element_present(browser, *MainPageLocators.main_search_btn), "Главное окно: нет кнопки 'поиск'"
+#     assert is_element_present(browser, *MainPageLocators.main_banners), "Главное окно: нет баннера"
+#
 
 @pytest.mark.parametrize("elements_locators", ["//select[@id='input-sort']", "//select[@id='input-limit']",
                                                "//label[@for='input-sort']", "//label[@for='input-limit']",
