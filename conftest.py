@@ -7,7 +7,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
-    parser.addoption("--url", default="https://demo.opencart.com")
+    parser.addoption("--url", default="http://localhost")
 
 
 @pytest.fixture()

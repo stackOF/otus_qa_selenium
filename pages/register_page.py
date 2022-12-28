@@ -23,3 +23,12 @@ class RegisterPage(BaseClass):
 
     def call_privacy_form(self):
         self.browser.find_element(*RegisterPageLocators.PRIVACY_POLICY).click()
+
+    def register_new_user(self):
+        self.input_value(self.browser.find_element(*RegisterPageLocators.FIRSTNAME_INPUT),
+                         RegisterPageLocators.FIRSTNAME)
+        self.input_value(self.browser.find_element(*RegisterPageLocators.LASTNAME_INPUT), RegisterPageLocators.LASTNAME)
+        self.input_value(self.browser.find_element(*RegisterPageLocators.EMAIL_INPUT), RegisterPageLocators.EMAIL)
+        self.input_value(self.browser.find_element(*RegisterPageLocators.PASSWORD_INPUT), RegisterPageLocators.PASSWORD)
+        self.click_element(self.browser.find_element(*RegisterPageLocators.PRIVACY_AGREE_CHECKBOX))
+        self.click_element(self.browser.find_element(*RegisterPageLocators.SUBMIT_BTN))

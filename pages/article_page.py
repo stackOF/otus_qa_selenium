@@ -17,7 +17,7 @@ class ArticlePage(BaseClass):
         assert self.is_element_present(*ArticlePageLocators.PRICE), "Окно товара: отсутствует цена товара"
 
     def should_be_cart_grade_stars(self):
-        assert self.is_element_present(*ArticlePageLocators.STARS), \
+        assert self.is_element_present(*ArticlePageLocators.RATING_STARS), \
             "Окно товара: отсутствует элемент (звезды) оценки товара"
 
     def select_article(self):

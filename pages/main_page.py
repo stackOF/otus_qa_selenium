@@ -23,3 +23,11 @@ class MainPage(BaseClass):
     def should_br_banners(self):
         assert self.is_element_present(*MainPageLocators.BANNERS), \
             "Главное окно: отсутствуют баннеры"
+
+    def change_currency_to_usd(self):
+        self.click_element(self.browser.find_element(*MainPageLocators.CURRENCY))
+        self.click_element(self.browser.find_element(*MainPageLocators.USD_LINK))
+
+    def check_currency_usd(self):
+        assert self.browser.find_element(*MainPageLocators.TEXT_USD).get_attribute("textContent") ==\
+               MainPageLocators.ICON_USD, "Валюта не установлена на выбранную"
