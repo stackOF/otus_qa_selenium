@@ -20,6 +20,7 @@ def browser(request):
     file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
     file_handler.setFormatter(logging.Formatter('[%(asctime)s: %(levelname)s] %(message)s'))
     logger.addHandler(file_handler)
+    logger.setLevel(logging.DEBUG)
 
     logger.info(f"===//// Старт тестов {request.node.name} в {datetime.datetime.now()} ===////")
     if browser == "chrome":
@@ -38,7 +39,7 @@ def browser(request):
 
     def fin():
         driver.quit()
-        logger.info(f"===//// Тесты {request.node.name} завершены в {datetime.datetime.now()} ===////")
+        logger.info(f"===//// Завершение тестов {request.node.name} в {datetime.datetime.now()} ===////")
 
     request.addfinalizer(fin)
     return driver
