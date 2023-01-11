@@ -12,13 +12,12 @@ class BaseClass:
     def open_page(self, url):
         self.browser.get(url)
 
-    def is_element_present(self, how, what, timeout=1):
+    def is_element_present(self, locator, timeout=1):
         """Проверка наличия элемента
-        :param how: способ поиска элемента (By.CSS_SELECTOR/ By.XPATH, ...)
-        :param what: локатор искомого объекта
+        :param locator: локатор
         :param timeout: сколько ждать"""
         try:
-            WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located((how, what)))
+            WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator))
         except TimeoutException:
             return False
         return True
