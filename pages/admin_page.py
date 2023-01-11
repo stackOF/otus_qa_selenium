@@ -33,11 +33,13 @@ class AdminPage(BaseClass):
         self.click_login_btn()
 
     def go_to_products_tab(self):
+        self.logger.info(f"Переход к вкладке продуктов")
         self.browser.maximize_window()
         self.click_element(self.browser.find_element(*AdminPageLocators.CATALOG))
         self.click_element(self.browser.find_element(*AdminPageLocators.PRODUCTS))
 
     def add_article(self):
+        self.logger.info(f"Добавление товара в панели админа")
         self.go_to_products_tab()
         self.click_element(self.browser.find_element(*AdminPageLocators.ADD_NEW_BTN))
         self.input_value(self.browser.find_element(*AdminPageLocators.PRODUCT_NAME_INPUT),
@@ -53,6 +55,7 @@ class AdminPage(BaseClass):
         self.click_element(self.browser.find_element(*AdminPageLocators.SUBMIT_BTN))
 
     def delete_article(self):
+        self.logger.info(f"Удаление товара в панели админа")
         self.go_to_products_tab()
         self.click_element(self.browser.find_element(*AdminPageLocators.CHECKBOX_ARTICLE))
         self.click_element(self.browser.find_element(*AdminPageLocators.DELETE_BTN))

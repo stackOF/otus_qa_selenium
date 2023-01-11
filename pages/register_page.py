@@ -25,6 +25,8 @@ class RegisterPage(BaseClass):
         self.browser.find_element(*RegisterPageLocators.PRIVACY_POLICY).click()
 
     def register_new_user(self):
+        self.logger.info("Регистрация нового пользователя")
+
         self.input_value(self.browser.find_element(*RegisterPageLocators.FIRSTNAME_INPUT),
                          RegisterPageLocators.FIRSTNAME)
         self.input_value(self.browser.find_element(*RegisterPageLocators.LASTNAME_INPUT), RegisterPageLocators.LASTNAME)

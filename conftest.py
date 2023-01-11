@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+import logging
+import datetime
 
 
 def pytest_addoption(parser):
@@ -13,6 +15,13 @@ def pytest_addoption(parser):
 @pytest.fixture()
 def browser(request):
     browser = request.config.getoption("--browser")
+
+    logger = logging.getLogger(request.node.name)
+    file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
+    file_handler.setFormatter(logging.Formatter('[%(asctime)s: %(levelname)s] %(message)s'))
+    logger.addHandler(file_handler)
+
+    logger.info(f"===//// Старт тестов {request.node.name} в {datetime.datetime.now()} ===////")
     if browser == "chrome":
         options = ChromeOptions()
         driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
@@ -24,8 +33,12 @@ def browser(request):
     else:
         raise Exception("Драйвер не поддерживается")
 
+    driver.logger = logger
+    driver.test_name = request.node.name
+
     def fin():
         driver.quit()
+        logger.info(f"===//// Тесты {request.node.name} завершены в {datetime.datetime.now()} ===////")
 
     request.addfinalizer(fin)
     return driver

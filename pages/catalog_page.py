@@ -27,6 +27,7 @@ class CatalogPage(BaseClass):
             "Страница товара: отсутствует кнопка сравнения"
 
     def go_to_catalog_page(self, browser, url):
+        self.logger.info("Переход к каталогу")
         self.browser.get(url)
         browser.maximize_window()
         WebDriverWait(browser, 2).until(ec.presence_of_element_located(CatalogPageLocators.CATEGORY_DESCTOPS_LINK)) \
