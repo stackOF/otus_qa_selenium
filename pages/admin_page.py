@@ -11,18 +11,18 @@ class AdminPage(BaseClass):
             f"Окно администратора: нет заголовка {AdminPageLocators.TITLE}"
 
     def should_be_close_btn(self):
-        assert self.is_element_present(*AdminPageLocators.CLOSE_BTN), \
+        assert self.is_element_present(AdminPageLocators.CLOSE_BTN), \
             "Окно администратора: отсутствует кнопка закрытия сообщения о неуспешной авторизации"
 
     def should_be_header(self):
-        assert self.is_element_present(*AdminPageLocators.HEADER), "Окно администратора: отсутствует заголовок"
+        assert self.is_element_present(AdminPageLocators.HEADER), "Окно администратора: отсутствует заголовок"
 
     def should_be_username_input(self):
-        assert self.is_element_present(*AdminPageLocators.USERNAME_INPUT), \
+        assert self.is_element_present(AdminPageLocators.USERNAME_INPUT), \
             "Окно администратора: отсутствует поле ввода username"
 
     def should_be_login_btn(self):
-        assert self.is_element_present(*AdminPageLocators.LOGIN_BTN), "Окно администратора: отсутствует кнопка логина"
+        assert self.is_element_present(AdminPageLocators.LOGIN_BTN), "Окно администратора: отсутствует кнопка логина"
 
     def click_login_btn(self):
         self.browser.find_element(*AdminPageLocators.LOGIN_BTN).click()

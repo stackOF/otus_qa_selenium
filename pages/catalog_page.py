@@ -7,23 +7,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 class CatalogPage(BaseClass):
 
     def should_be_sort_select(self):
-        assert self.is_element_present(*CatalogPageLocators.SORT_SELECT), \
+        assert self.is_element_present(CatalogPageLocators.SORT_SELECT), \
             "Страница товара: отсутствует  элемент выбора сортировки"
 
     def should_be_limit_show_input(self):
-        assert self.is_element_present(*CatalogPageLocators.LIMIT_SHOW_INPUT), \
+        assert self.is_element_present(CatalogPageLocators.LIMIT_SHOW_INPUT), \
             "Страница товара: отсутствует элемент выбора сортировки"
 
     def should_be_limit_sort_label(self):
-        assert self.is_element_present(*CatalogPageLocators.SORT_LABEL), \
+        assert self.is_element_present(CatalogPageLocators.SORT_LABEL), \
             "Страница товара: отсутствует надпись 'Sort by'"
 
     def should_be_show_label(self):
-        assert self.is_element_present(*CatalogPageLocators.SHOW_LABEL), \
+        assert self.is_element_present(CatalogPageLocators.SHOW_LABEL), \
             "Страница товара: отсутствует надпись 'Show label'"
 
     def should_be_compare_total(self):
-        assert self.is_element_present(*CatalogPageLocators.COMPARISON_BTN), \
+        assert self.is_element_present(CatalogPageLocators.COMPARISON_BTN), \
             "Страница товара: отсутствует кнопка сравнения"
 
     def go_to_catalog_page(self, browser, url):

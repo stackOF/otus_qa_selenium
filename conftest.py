@@ -23,7 +23,11 @@ def browser(request):
         driver = webdriver.Safari()
     else:
         raise Exception("Драйвер не поддерживается")
-    request.addfinalizer(driver.quit)
+
+    def fin():
+        driver.quit()
+
+    request.addfinalizer(fin)
     return driver
 
 
