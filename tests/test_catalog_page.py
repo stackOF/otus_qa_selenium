@@ -1,7 +1,10 @@
 import pytest
 from pages.catalog_page import CatalogPage
+import allure
 
 
+@allure.feature('Catalog page')
+@allure.story('Go to page and page elements')
 @pytest.mark.elements
 def test_elements_catalog_page(browser, url):
     page = CatalogPage(browser)

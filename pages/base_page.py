@@ -1,8 +1,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver import ActionChains
+from selenium.webdriver import Keys
 import logging
+import allure
 
 
 class BaseClass:
@@ -15,10 +16,12 @@ class BaseClass:
         self.logger.addHandler(file_handler)
         self.logger.setLevel(logging.DEBUG)
 
+    @allure.step("Open url: {url}")
     def open_page(self, url):
         self.logger.info(f"Открытие страницы: {url}")
         self.browser.get(url)
 
+    @allure.step("Check if element {locator} is present")
     def is_element_present(self, locator, timeout=1):
         """Проверка наличия элемента
         :param locator: локатор
@@ -26,15 +29,25 @@ class BaseClass:
         self.logger.info(f"Проверка наличия элемента: {locator}")
         try:
             WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator))
-        except TimeoutException:
+        except TimeoutException as e:
             self.logger.exception(f'{TimeoutException}')
+            allure.attach(
+                body=self.browser.get_screenshot_as_png(),
+                attachment_type=allure.attachment_type.PNG,
+                name='screen_image')
+            raise AssertionError(e.msg)
             return False
         return True
 
-    def input_value(self, element, value):
-        ActionChains(self.browser).move_to_element(element).click(element)
-        element.clear()
-        element.send_keys(value)
+    @allure.step("Input {value} in {locator}")
+    def input_value(self, locator, value, timeout=0.1):
+        self.logger.info(f"Ввод {value} в поле ввода {locator}")
+        input_field = WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator))
+        input_field.click()
+        input_field.send_keys(Keys.SHIFT + Keys.HOME + Keys.DELETE)
+        input_field.send_keys(value)
 
-    def click_element(self, element):
-        ActionChains(self.browser).move_to_element(element).click(element).perform()
+    @allure.step("Clicking element {locator}")
+    def click_element(self, locator, timeout=0.1):
+        self.logger.info(f"Клик по элементу {locator}")
+        WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator)).click()

@@ -1,7 +1,6 @@
 from pages.base_page import BaseClass
 from pages.locators import CatalogPageLocators
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.support.ui import WebDriverWait
+import allure
 
 
 class CatalogPage(BaseClass):
@@ -26,10 +25,10 @@ class CatalogPage(BaseClass):
         assert self.is_element_present(CatalogPageLocators.COMPARISON_BTN), \
             "Страница товара: отсутствует кнопка сравнения"
 
+    @allure.step("Go to catalog page")
     def go_to_catalog_page(self, browser, url):
         self.logger.info("Переход к каталогу")
         self.browser.get(url)
         browser.maximize_window()
-        WebDriverWait(browser, 2).until(ec.presence_of_element_located(CatalogPageLocators.CATEGORY_DESCTOPS_LINK)) \
-            .click()
-        WebDriverWait(browser, 2).until(ec.presence_of_element_located(CatalogPageLocators.SHOW_ALL_LINK)).click()
+        self.click_element(CatalogPageLocators.CATEGORY_DESCTOPS_LINK)
+        self.click_element(CatalogPageLocators.SHOW_ALL_LINK)

@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import logging
 import datetime
+import allure
+import json
 
 
 def pytest_addoption(parser):
@@ -33,6 +35,18 @@ def browser(request):
         driver = webdriver.Safari()
     else:
         raise Exception("Драйвер не поддерживается")
+
+    allure.attach(
+        name=driver.session_id,
+        body=json.dumps(driver.capabilities),
+        attachment_type=allure.attachment_type.JSON)
+
+    with open("allure-results/environment.xml", "w+") as file:
+        file.write(f"""<environment>
+                  <parameter>
+                      <key>Browser</key>
+                      <value>{browser}</value>
+              </environment>""")
 
     driver.logger = logger
     driver.test_name = request.node.name

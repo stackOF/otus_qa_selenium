@@ -1,6 +1,10 @@
+import allure
+
 from pages.admin_page import AdminPage
 
 
+@allure.feature('Admin page')
+@allure.story('Page elements')
 def test_elements_admin_page(browser, url):
     page = AdminPage(browser)
     page.open_page(f'{url}/administration')
@@ -12,6 +16,8 @@ def test_elements_admin_page(browser, url):
     page.should_be_close_btn()
 
 
+@allure.feature('Admin page')
+@allure.story('Add new article to catalog')
 def test_add_article(browser, url):
     page = AdminPage(browser)
     page.open_page(f'{url}/administration/')
@@ -19,6 +25,8 @@ def test_add_article(browser, url):
     page.add_article()
 
 
+@allure.feature('Admin page')
+@allure.story('Delete article from catalog')
 def test_delete_article(browser, url):
     page = AdminPage(browser)
     page.open_page(f'{url}/administration/')

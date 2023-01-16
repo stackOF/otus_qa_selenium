@@ -1,6 +1,9 @@
 from pages.register_page import RegisterPage
+import allure
 
 
+@allure.feature('Register page')
+@allure.story('Go to page and page elements')
 def test_elements_article_page(browser, url):
     page = RegisterPage(browser)
     page.open_page(f'{url}/index.php?route=account/register')
@@ -12,6 +15,8 @@ def test_elements_article_page(browser, url):
     page.should_be_close_privacy()
 
 
+@allure.feature('Registration page')
+@allure.story('Registration new user')
 def test_register_new_user(browser, url):
     page = RegisterPage(browser)
     page.open_page(f'{url}/index.php?route=account/register')
