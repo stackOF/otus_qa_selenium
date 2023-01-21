@@ -48,17 +48,6 @@ def browser(request):
     logger.setLevel(logging.DEBUG)
 
     logger.info(f"===//// Старт тестов {request.node.name} в {datetime.datetime.now()} ===////")
-    # if browser == "chrome":
-    #     options = ChromeOptions()
-    #     driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
-    # elif browser == "firefox":
-    #     options = FirefoxOptions()
-    #     driver = webdriver.Firefox(service=Service('geckodriver'), options=options)
-    # elif browser == "safari":
-    #     driver = webdriver.Safari()
-    # else:
-    #     raise Exception("Драйвер не поддерживается")
-
     allure.attach(
         name=driver.session_id,
         body=json.dumps(driver.capabilities),
