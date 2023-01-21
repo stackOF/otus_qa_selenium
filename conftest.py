@@ -39,8 +39,6 @@ def browser(request):
             command_executor=executor_url,
             desired_capabilities=caps)
 
-    # driver.maximize_window()
-
     logger = logging.getLogger(request.node.name)
     file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
     file_handler.setFormatter(logging.Formatter('[%(asctime)s: %(levelname)s] %(message)s'))
