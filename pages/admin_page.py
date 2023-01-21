@@ -8,7 +8,7 @@ import allure
 
 class AdminPage(BaseClass):
     def should_be_title(self, browser):
-        assert WebDriverWait(browser, 1).until(ec.title_is(AdminPageLocators.TITLE)), \
+        assert WebDriverWait(browser, 3).until(ec.title_is(AdminPageLocators.TITLE)), \
             f"Окно администратора: нет заголовка {AdminPageLocators.TITLE}"
 
     def should_be_close_btn(self):

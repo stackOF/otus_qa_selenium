@@ -2,7 +2,6 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import logging
 import datetime
 import allure
@@ -10,13 +9,37 @@ import json
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", default="chrome")
-    parser.addoption("--url", default="http://localhost")
+    parser.addoption("--browser", action="store", default="chrome")
+    parser.addoption("--url", default="http://192.168.0.165:8081")
+    parser.addoption("--executor", action="store", default="http://192.168.0.165")
+    parser.addoption("--vnc", action="store_true")
+    parser.addoption("--video", action="store_true")
 
 
 @pytest.fixture()
 def browser(request):
     browser = request.config.getoption("--browser")
+    executor = request.config.getoption("--executor")
+    vnc = request.config.getoption("--vnc")
+    video = request.config.getoption("--video")
+
+    if executor == "local":
+        options = ChromeOptions()
+        driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
+    else:
+        executor_url = f"{executor}:4444/wd/hub"
+        caps = {
+            "browserName": browser,
+            "selenoid:options": {
+                "enableVNC": vnc,
+                "enableVideo": video}
+        }
+
+        driver = webdriver.Remote(
+            command_executor=executor_url,
+            desired_capabilities=caps)
+
+    # driver.maximize_window()
 
     logger = logging.getLogger(request.node.name)
     file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
@@ -25,16 +48,16 @@ def browser(request):
     logger.setLevel(logging.DEBUG)
 
     logger.info(f"===//// Старт тестов {request.node.name} в {datetime.datetime.now()} ===////")
-    if browser == "chrome":
-        options = ChromeOptions()
-        driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
-    elif browser == "firefox":
-        options = FirefoxOptions()
-        driver = webdriver.Firefox(service=Service('geckodriver'), options=options)
-    elif browser == "safari":
-        driver = webdriver.Safari()
-    else:
-        raise Exception("Драйвер не поддерживается")
+    # if browser == "chrome":
+    #     options = ChromeOptions()
+    #     driver = webdriver.Chrome(service=Service('chromedriver'), options=options)
+    # elif browser == "firefox":
+    #     options = FirefoxOptions()
+    #     driver = webdriver.Firefox(service=Service('geckodriver'), options=options)
+    # elif browser == "safari":
+    #     driver = webdriver.Safari()
+    # else:
+    #     raise Exception("Драйвер не поддерживается")
 
     allure.attach(
         name=driver.session_id,

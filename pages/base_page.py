@@ -40,7 +40,7 @@ class BaseClass:
         return True
 
     @allure.step("Input {value} in {locator}")
-    def input_value(self, locator, value, timeout=0.1):
+    def input_value(self, locator, value, timeout=1):
         self.logger.info(f"Ввод {value} в поле ввода {locator}")
         input_field = WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator))
         input_field.click()
@@ -48,6 +48,6 @@ class BaseClass:
         input_field.send_keys(value)
 
     @allure.step("Clicking element {locator}")
-    def click_element(self, locator, timeout=0.1):
+    def click_element(self, locator, timeout=1):
         self.logger.info(f"Клик по элементу {locator}")
         WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located(locator)).click()

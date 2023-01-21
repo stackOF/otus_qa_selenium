@@ -3,7 +3,7 @@ import allure
 
 
 @allure.feature('Article page')
-@allure.story('Go to page anf page elements')
+@allure.story('Go to page and page elements')
 def test_elements_article_page(browser, url):
     page = ArticlePage(browser)
     page.open_page(url)
