@@ -6,6 +6,7 @@ import logging
 import datetime
 import allure
 import json
+import warnings
 
 
 def pytest_addoption(parser):
@@ -35,9 +36,9 @@ def browser(request):
                 "enableVideo": video}
         }
 
-        driver = webdriver.Remote(
-            command_executor=executor_url,
-            desired_capabilities=caps)
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
+            driver = webdriver.Remote(command_executor=executor_url, desired_capabilities=caps)
 
     logger = logging.getLogger(request.node.name)
     file_handler = logging.FileHandler(f"logs/{request.node.name}.log")

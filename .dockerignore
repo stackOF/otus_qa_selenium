@@ -1,0 +1,16 @@
+# Ignore virtual environment
+venv/
+
+# Ignore IDE dir
+.idea/
+
+# Ignore git and cache dirs
+.git
+.pytest_cache
+
+# Ignore allure dir
+allure-report
+allure-results
+
+#Ignore log
+/logs/*.log
