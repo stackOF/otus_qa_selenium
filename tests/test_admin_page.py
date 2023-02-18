@@ -1,23 +1,34 @@
+import allure
+
 from pages.admin_page import AdminPage
 
 
+@allure.feature('Admin page')
+@allure.story('Page elements')
 def test_elements_admin_page(browser, url):
-    AdminPage(browser).open_page(f'{url}/administration')
-    AdminPage(browser).should_be_title(browser)
-    AdminPage(browser).should_be_login_btn()
-    AdminPage(browser).should_be_header()
-    AdminPage(browser).should_be_username_input()
-    AdminPage(browser).click_login_btn()
-    AdminPage(browser).should_be_close_btn()
+    page = AdminPage(browser)
+    page.open_page(f'{url}/admin')
+    page.should_be_title(browser)
+    page.should_be_login_btn()
+    page.should_be_header()
+    page.should_be_username_input()
+    page.click_login_btn()
+    page.should_be_close_btn()
 
 
+@allure.feature('Admin page')
+@allure.story('Add new article to catalog')
 def test_add_article(browser, url):
-    AdminPage(browser).open_page(f'{url}/administration/')
-    AdminPage(browser).authorization()
-    AdminPage(browser).add_article()
+    page = AdminPage(browser)
+    page.open_page(f'{url}/admin/')
+    page.authorization()
+    page.add_article()
 
 
+@allure.feature('Admin page')
+@allure.story('Delete article from catalog')
 def test_delete_article(browser, url):
-    AdminPage(browser).open_page(f'{url}/administration/')
-    AdminPage(browser).authorization()
-    AdminPage(browser).delete_article()
+    page = AdminPage(browser)
+    page.open_page(f'{url}/admin/')
+    page.authorization()
+    page.delete_article()

@@ -1,5 +1,6 @@
 from pages.base_page import BaseClass
 from pages.locators import ArticlePageLocators
+import allure
 
 
 class ArticlePage(BaseClass):
@@ -20,5 +21,7 @@ class ArticlePage(BaseClass):
         assert self.is_element_present(ArticlePageLocators.RATING_STARS), \
             "Окно товара: отсутствует элемент (звезды) оценки товара"
 
+    @allure.step("Select article")
     def select_article(self):
-        self.browser.find_element(*ArticlePageLocators.ARTICLE).click()
+        self.logger.info(f"Выбор товара")
+        self.click_element(ArticlePageLocators.ARTICLE)

@@ -129,3 +129,9 @@ dmypy.json
 .pyre/
 
 .idea/
+/tests/logs/
+/tests/allure-results/
+/tests/allure-report/
+/allure-report/
+/allure-results/
+/logs/

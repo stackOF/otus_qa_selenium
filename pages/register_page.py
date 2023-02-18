@@ -1,5 +1,6 @@
 from pages.base_page import BaseClass
 from pages.locators import RegisterPageLocators
+import allure
 
 
 class RegisterPage(BaseClass):
@@ -21,14 +22,17 @@ class RegisterPage(BaseClass):
         assert self.is_element_present(RegisterPageLocators.CLOSE_BTN), \
             "Окно регистрации: нет кнопки закрытия модельной формы с политикой"
 
+    @allure.step("Call privacy text")
     def call_privacy_form(self):
-        self.browser.find_element(*RegisterPageLocators.PRIVACY_POLICY).click()
+        self.logger.info("Открытия формы с политикой")
+        self.click_element(RegisterPageLocators.PRIVACY_POLICY)
 
+    @allure.step("Register new user")
     def register_new_user(self):
-        self.input_value(self.browser.find_element(*RegisterPageLocators.FIRSTNAME_INPUT),
-                         RegisterPageLocators.FIRSTNAME)
-        self.input_value(self.browser.find_element(*RegisterPageLocators.LASTNAME_INPUT), RegisterPageLocators.LASTNAME)
-        self.input_value(self.browser.find_element(*RegisterPageLocators.EMAIL_INPUT), RegisterPageLocators.EMAIL)
-        self.input_value(self.browser.find_element(*RegisterPageLocators.PASSWORD_INPUT), RegisterPageLocators.PASSWORD)
-        self.click_element(self.browser.find_element(*RegisterPageLocators.PRIVACY_AGREE_CHECKBOX))
-        self.click_element(self.browser.find_element(*RegisterPageLocators.SUBMIT_BTN))
+        self.logger.info("Регистрация нового пользователя")
+        self.input_value(RegisterPageLocators.FIRSTNAME_INPUT, RegisterPageLocators.FIRSTNAME)
+        self.input_value(RegisterPageLocators.LASTNAME_INPUT, RegisterPageLocators.LASTNAME)
+        self.input_value(RegisterPageLocators.EMAIL_INPUT, RegisterPageLocators.EMAIL)
+        self.input_value(RegisterPageLocators.PASSWORD_INPUT, RegisterPageLocators.PASSWORD)
+        self.click_element(RegisterPageLocators.PRIVACY_AGREE_CHECKBOX)
+        self.click_element(RegisterPageLocators.SUBMIT_BTN)
